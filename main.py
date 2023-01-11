@@ -11,7 +11,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import accuracy_score
-
+import pandas as pd
+import pickle
 st.title('Streamlit Example')
 
 st.write("""
@@ -107,3 +108,22 @@ plt.colorbar()
 
 #plt.show()
 st.pyplot(fig)
+
+st.write("Enter unseen data for predict")
+
+input1 = st.text_input('input1')
+input2 = st.text_input('input2')
+input3 = st.text_input('input3')
+input4 = st.text_input('input4')
+unseendata=pd.DataFrame({'sepal length':[input1],
+                         'sepal width':[input2],
+                         'petal length':[input3],
+                         'petal width':[input4]})
+						 
+filename='svciris'
+
+newmodel=model = pickle.load(open(filename, "rb"))
+res= newmodel.predict(unseendata)
+st.write(res)
+
+
